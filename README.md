@@ -2,10 +2,22 @@
 
 Repo that handles all applications/services that are needed on a mission control laptop
 
-<details>
-    <summary>Section Links</summary>
-    <p>[Server](#SERVER "Goto SERVER") | [Telemetry](#TELEMETRY "Goto TELEMETRY") | [Database](#DATABASE "Goto DATABASE") | [Interface](#INTERFACE "Goto INTERFACE") | [Adapter](#ADAPTER "Goto ADAPTER")</p>
-</details>
+### Section Links ###
+
+[Docker Setup](#DOCKER_SETUP "Goto DOCKER_SETUP")
+
+[Git/Github Setup](#GIT_SETUP "Goto GIT_SETUP")
+
+[Server](#SERVER "Goto SERVER")
+
+[Telemetry](#TELEMETRY "Goto TELEMETRY")
+
+[Database](#DATABASE "Goto DATABASE")
+
+[Interface](#INTERFACE "Goto INTERFACE")
+
+[Adapter](#ADAPTER "Goto ADAPTER")
+
 
 ### Where each service runs ###
 First Header  | Second Header
@@ -18,8 +30,12 @@ MissionControlAdapter  | Locally
 
 TODO:
 - [ ] add useful links list
+- [ ] add pictures of each GUI
+- [ ] add draw.io diagram outlining how everything interracts
 
-### Docker Setup Instructions  ###
+
+
+### Docker Setup Instructions<a name="DOCKER_SETUP"></a>  ###
 
 #### Windows  ####
 Running MissionControl Containers in Windows 10/11
@@ -65,6 +81,11 @@ OR
 type the desired Docker container name in the Docker Desktop top search bar and select pull.
 
 
+
+- - - -
+
+
+
 Once an image is pulled, it can be ran using the command line
 ```bash
 # run a customized container based on a public image
@@ -98,7 +119,7 @@ Requirements
 [This VSCode documentation page](https://code.visualstudio.com/docs/devcontainers/containers) has more information
 
 
-### Github Desktop and git Setup Instructions  ###
+### Github Desktop and git Setup Instructions<a name="GIT_SETUP"></a> ###
 
 #### Windows  ####
 A manager app for Windows 10/11 that makes repository development easier
@@ -167,6 +188,8 @@ Our use case for Grafana is viewing:
 The MissionControlTelemetry directory contains:
 - [x] a docker-compose file for setting up a properly configured Grafana container
 - [ ] a publicly available Grafana container that has been customized for our use case
+
+
 The second checkbox is low priority/unnecessary at the moment becuase
 - Grafana already runs upon container start up, eliminating the need for a customized container
 - the Grafana container can be configured enough for our use case with the docker-compose file
@@ -196,6 +219,8 @@ Our use case for a PostgreSQL database is:
 The MissionControlDatabase directory contains:
 - [x] a docker-compose file for setting up a properly configured Postgres container
 - [ ] a publicly available Postgres container that has been customized for our use case
+
+
 The second checkbox is low priority/unnecessary at the moment becuase
 - Postgres already runs upon container start up, eliminating the need for a customized container
 - the Postgres container can be configured enough for our use case with the docker-compose file
@@ -212,8 +237,8 @@ Our use case for MissionControlInterface is to:
 - provide a minimalistic, easy to use, dedicated app for sending commands to the mission hardware
 
 This application is *separate* from the telemetry visualization app (Grafana) to:
-    - increase the reliability of this application as it is more safety-critical than a telemetry dashboard
-    - allow for the Grafana dashboard to be used for telemetry visualization in multiple locations (this would be unwise if the dashboard easily allowed for commands to be sent)
+- increase the reliability of this application as it is more safety-critical than a telemetry dashboard
+- allow for the Grafana dashboard to be used for telemetry visualization in multiple locations (this would be unwise if the dashboard easily allowed for commands to be sent)
 
 The MissionControlInterface directory contains:
 - [ ] a javascript app that can populate a special command table in the database container
