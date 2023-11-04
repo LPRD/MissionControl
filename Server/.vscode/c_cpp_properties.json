@@ -1,0 +1,16 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/usr/include/pqxx/**",
+                "/usr/lib/x86_64-linux-gnu/**",
+                "/usr/local/include/**",
+                "/usr/include/**"
+            ],
+            "defines": []
+        }
+    ],
+    "version": 4
+}

@@ -1,0 +1,41 @@
+# Docker compose file for MissionControlServer
+
+# Command to set up the MissionControlSerer container
+# docker-compose -f docker-compose.yml up
+
+name: "MissionControl"
+version: "3.1"
+
+services:
+  MissionControlServer:
+    image: debian:trixie
+    restart: always
+    environment:
+      - DATABASE_USER=lprd
+      - DATABASE_PASS=tyJcV9oY1wvZU9IPpGgD
+      - DATABASE_NAME=missioncontroldb
+      - DATABASE_HOST=database
+    command: bash -c "
+        apt-get -y update;
+        apt install iproute2 -y;
+        apt-get install iputils-ping -y;
+        apt-get -y install vim;
+        apt-get -y install tree;
+        apt-get install g++ -y;
+        apt-get install wget -y;
+        apt-get install build-essential -y;
+        apt update -y && apt upgrade -y;
+        apt install cmake -y;
+        apt-get install netcat-traditional -y;
+        apt-get install nmap -y;
+        apt-get install man -y;
+        apt-get install libpqxx-dev -y;
+        apt-get install git -y;"
+    network_mode: "host"
+    # ports:
+    #     - 5432:5432
+    # volumes:
+    #   - import:/opt/app/import
+
+# volumes:
+#   import:
