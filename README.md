@@ -23,7 +23,7 @@ Repo that handles all applications/services that are needed on a mission control
 First Header  | Second Header
 | :---: | :---:
 MissionControlServer  | Docker Container
-MissionControlTelemetry Cell  | Docker Container
+MissionControlTelemetry | Docker Container
 MissionControlDatabase  | Docker Container
 MissionControlInterface  | Locally
 MissionControlAdapter  | Locally
@@ -100,6 +100,9 @@ $ docker run -it lprd/MissionControlServer:latest
 OR
 
 click the start button in the Docker Desktop app (first navigate to the containers tab)
+
+
+- - - -
 
 
 #### Docker Development Setup Instructions ####
