@@ -3,6 +3,34 @@
 # Command to set up the MissionControlSerer container
 # docker compose -f docker-compose.yml up -d
 
+# Configure this container
+# get to the command line run the following commands:
+#     apt update -y && apt upgrade -y;
+#     apt-get install g++ -y;
+#     apt install cmake -y;
+#     apt-get install libpqxx-dev -y;
+#     apt-get install git -y;
+#     cd /home;
+#     git clone https://github.com/LPRD/MissionControl.git;
+#     mv MissionControl/Server/MissionControlServer .;
+#     mv MissionControl/Server/.vscode .;
+#     mv MissionControl/Server/.profile .;
+#     rm /etc/localtime;
+#     ln -s /usr/share/zoneinfo/America/Chicago /etc/localtime;
+
+# optional but helpful packages:
+  #     apt update -y && apt upgrade -y;
+  #     apt install iproute2 -y;
+  #     apt-get install iputils-ping -y;
+  #     apt-get -y install vim;
+  #     apt-get -y install tree;
+  #     apt-get install wget -y;
+  #     apt-get install build-essential -y;
+  #     apt update -y && apt upgrade -y;
+  #     apt-get install netcat-traditional -y;
+  #     apt-get install nmap -y;
+  #     apt-get install man -y;
+
 name: "missioncontrolserver"
 version: "3.1"
 
@@ -16,25 +44,18 @@ services:
       - DATABASE_NAME=missioncontroldb
       - DATABASE_HOST=database
     tty: true
-
+    network_mode: "host"
     # command: bash
-    # command: bash -c "
-    #     apt-get -y update;
-    #     apt install iproute2 -y;
-    #     apt-get install iputils-ping -y;
-    #     apt-get -y install vim;
-    #     apt-get -y install tree;
-    #     apt-get install g++ -y;
-    #     apt-get install wget -y;
-    #     apt-get install build-essential -y;
-    #     apt update -y && apt upgrade -y;
-    #     apt install cmake -y;
-    #     apt-get install netcat-traditional -y;
-    #     apt-get install nmap -y;
-    #     apt-get install man -y;
-    #     apt-get install libpqxx-dev -y;
-    #     apt-get install git -y;"
-    # network_mode: "host"
+
+    command: bash -c "
+        if [ -e /home/MissionControlServer/examples/example2 ]; then
+          echo 'starting MissionControlServer!';
+          /home/MissionControlServer/examples/example2;
+        else
+          echo 'executing default \"bash\" command!';
+          bash;
+        fi;"
+
     # ports:
     #     - 5432:5432
     # volumes:
