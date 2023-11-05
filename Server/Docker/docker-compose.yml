@@ -7,19 +7,18 @@
 # get to the command line run the following commands:
 #     apt update -y && apt upgrade -y;
 #     apt-get install g++ -y;
-#     apt install cmake -y;
 #     apt-get install libpqxx-dev -y;
 #     apt-get install git -y;
 #     cd /home;
 #     git clone https://github.com/LPRD/MissionControl.git;
 #     mv MissionControl/Server/MissionControlServer .;
 #     mv MissionControl/Server/.vscode .;
-#     mv MissionControl/Server/.profile .;
 #     rm /etc/localtime;
 #     ln -s /usr/share/zoneinfo/America/Chicago /etc/localtime;
 
 # optional but helpful packages:
   #     apt update -y && apt upgrade -y;
+  #     apt install cmake -y;
   #     apt install iproute2 -y;
   #     apt-get install iputils-ping -y;
   #     apt-get -y install vim;

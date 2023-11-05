@@ -18,6 +18,7 @@ docker pull < TBD Container >
     - move the .vscode and MissionControlServer folders to the /home directory
     - move the .profile file to the /home directory if the system time does not match the correct time zone
         - use the "date" command to see the system time
+        - this doesn't always seem to work, use symbolic links with /etc/localtime (see docker-compose)
 
 
 
