@@ -18,6 +18,7 @@
 
 # optional but helpful packages:
   #     apt update -y && apt upgrade -y;
+  #     apt-get install -y procps;  #for "ps aux" command to "kill -9" the server PID  
   #     apt install cmake -y;
   #     apt install iproute2 -y;
   #     apt-get install iputils-ping -y;
@@ -50,6 +51,7 @@ services:
         if [ -e /home/MissionControlServer/examples/example2 ]; then
           echo 'starting MissionControlServer!';
           /home/MissionControlServer/examples/example2;
+          bash;
         else
           echo 'executing default \"bash\" command!';
           bash;
