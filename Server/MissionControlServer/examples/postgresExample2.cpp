@@ -123,19 +123,15 @@ int main(int argc, char* argv[]) {
       std::cout << "Opened database successfully: " << C.dbname() << std::endl;
       std::cout << "(An exception would have been thrown if this was not the case)" << std::endl;
 
-      if(ONLY_DELETE_TABLE)
-      {
-         // Create a transactional object.
-         work W_DROP(C);
-         // DROP SQL statement
-         // IF EXISTS prevents an error from being thrown if the table doesn't exist
-         sql = "DROP TABLE IF EXISTS LOAD_CELL_DATA";
-         // Execute SQL query
-         W_DROP.exec( sql );
-         W_DROP.commit();
-         std::cout << "Table deleted/dropped successfully" << std::endl;
-         return 0;
-      }
+      // Create a transactional object.
+      work W_DROP(C);
+      // DROP SQL statement
+      // IF EXISTS prevents an error from being thrown if the table doesn't exist
+      sql = "DROP TABLE IF EXISTS LOAD_CELL_DATA";
+      // Execute SQL query
+      W_DROP.exec( sql );
+      W_DROP.commit();
+      std::cout << "Table deleted/dropped successfully" << std::endl;
 
       // Create a transactional object.
       work W_TABLE(C);
