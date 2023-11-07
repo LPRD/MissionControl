@@ -1,0 +1,64 @@
+# Docker compose file for MissionControlTelemetry
+
+# Command to set up the MissionControlTelemetry container
+# docker compose -f docker-compose.yml up -d
+
+# Configure this container
+# go to locahost:<grafana-chosen-host-port>
+# enter the username and password on the grafana login page
+# (default is admin admin; will prompt you to change it)
+# go to the left panel/dropdown menu
+# navigate to Home > Connections > Data sources
+# select the "+ Add new data source" button
+# search for a "PostgreSQL" datasource
+# give the datasource any desired name
+
+# The following fields must be populated correctly for the database to be accessible:
+# Host must be set to "DATABASE_HOST:<postgres port>"
+#   - where DATABASE_HOST is the the value of the variable assigned below as
+#     well as the name of the postgres service
+#   - where <postgres port> is the port PostgreSQL uses, 5432 in this case
+# Database must be set to "DATABASE_NAME"
+#   - where DATABASE_NAME is the value of the variable assigned below
+# User must be set to "DATABASE_USER"
+# Password must be set to "DATABASE_PASS"
+# TLS/SSL Mode should be set to "disable"
+
+# The following settings aren't as important
+# Max open connection limits can be left at 100
+# Auto Max Idle can be left on
+# Max lifetime can be left at 14400
+# other PostgreSQL details
+
+# select "Save & test" to check if Grafana can connect to the database 
+
+name: "missioncontroltelemetry"
+version: "3.1"
+
+services:
+  grafana:
+    image: grafana/grafana:10.2.0
+    restart: always
+    environment:
+      - DATABASE_USER=lprd
+      - DATABASE_PASS=tyJcV9oY1wvZU9IPpGgD
+      - DATABASE_NAME=missioncontroldb
+      - DATABASE_HOST=database  
+      # DATABASE_HOST must match the name of the postgres service as shown in
+      # the "services" list of the docker-compose file for MissionControlDatabase
+
+      - GF_DASHBOARDS_MIN_REFRESH_INTERVAL=100ms
+      # deleting the previous grafana/grafana:latest container and using docker
+      # compose to create a new container will allow the configuration override
+      # to take effect
+      # https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/#override-configuration-with-environment-variables
+    ports:
+      # see https://docs.docker.com/compose/compose-file/compose-file-v3/#ports for reference
+      #<grafana-chosen-host-port>:<grafana-port-on-container>
+      - "13128:3000"
+      # <HOST:CONTAINER> for additional ports
+    volumes:
+      - missioncontrol-grafana-data:/var/lib/grafana
+
+volumes:
+  missioncontrol-grafana-data:
