@@ -18,6 +18,12 @@
 #   - where DATABASE_HOST is the the value of the variable assigned below as
 #     well as the name of the postgres service
 #   - where <postgres port> is the port PostgreSQL uses, 5432 in this case
+# If the above does not work, enter the command 
+# "docker network inspect <bridge>" 
+# (or a custom network that uses the bridge driver) 
+# If the postgres container is running, the above command should show the IPv4
+# Address it is using. Enter that IP address in the place of DATABASE_HOST
+
 # Database must be set to "DATABASE_NAME"
 #   - where DATABASE_NAME is the value of the variable assigned below
 # User must be set to "DATABASE_USER"
@@ -52,6 +58,8 @@ services:
       # compose to create a new container will allow the configuration override
       # to take effect
       # https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/#override-configuration-with-environment-variables
+    network_mode: "missioncontrolnet"   #also allows the service name "database" to be used in grafana instead of the static IP
+    # network_mode: "bridge"
     ports:
       # see https://docs.docker.com/compose/compose-file/compose-file-v3/#ports for reference
       #<grafana-chosen-host-port>:<grafana-port-on-container>

@@ -18,6 +18,8 @@
 
 # optional but helpful packages:
   #     apt update -y && apt upgrade -y;
+  #     apt-get install dnsutils -y;  #host <ip>
+  #     apt-get install nbtscan -y;   #nbtscan <ip>
   #     apt-get install -y procps;  #for "ps aux" command to "kill -9" the server PID  
   #     apt install cmake -y;
   #     apt install iproute2 -y;
@@ -44,7 +46,7 @@ services:
       - DATABASE_NAME=missioncontroldb
       - DATABASE_HOST=database
     tty: true
-    network_mode: "host"
+    network_mode: "host"  #TODO test "missioncontrolnet"
     # command: bash
 
     command: bash -c "

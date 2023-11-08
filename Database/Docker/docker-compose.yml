@@ -14,10 +14,45 @@ services:
       - POSTGRES_USER=lprd
       - POSTGRES_PASSWORD=tyJcV9oY1wvZU9IPpGgD
       - POSTGRES_DB=missioncontroldb
+    # network_mode: "bridge"
+    # network_mode: "missioncontrolnet"
+      # Network Configuration method for this and other containers (less preferred)
+
+      # A network that uses the bridge driver can be set up beforehand and all
+      # containers can simply use that "network_mode:" service option. This works, but
+      # you won't be able to set the IP for each service within the docker file. This
+      # is an issue for grafana, since you need to specify the ip address for the
+      # postgres service. 
+
+      # Set up a special network that uses the bridge driver by entering the following
+      # command on the command line:
+      # docker network create --driver=bridge --subnet=10.80.0.0/16 --ip-range=10.80.22.0/24 \
+      #   --gateway=10.80.22.1 missioncontrolnet
+
+      # entering the command:
+      # "docker network ls"
+      # will let you verify the network has been created
+
+    networks:
+      missioncontrol_net:
+        ipv4_address: "10.80.22.9"
+        # must have other services within this compose file to set a staic IP
     ports:
       - 5432:5432
     volumes:
       - missioncontrol-db:/var/lib/postgresql/data
+
+# More setup info:
+# https://docs.docker.com/compose/compose-file/compose-file-v3/#ipv4_address-ipv6_address
+networks:
+  # expanded network name would be:
+  # missioncontroldatabase_missioncontrol_net
+  missioncontrol_net: 
+    ipam:
+      driver: default   #bridge
+      config:
+        - subnet: "10.80.22.0/24"
+    name: "missioncontrolnet"
 
 volumes:
   missioncontrol-db:
