@@ -46,8 +46,7 @@ services:
       - DATABASE_NAME=missioncontroldb
       - DATABASE_HOST=database
     tty: true
-    network_mode: "host"  #TODO test "missioncontrolnet"
-    # command: bash
+    network_mode: "missioncontrolnet"
 
     command: bash -c "
         if [ -e /home/MissionControlServer/examples/example2 ]; then
@@ -59,8 +58,8 @@ services:
           bash;
         fi;"
 
-    # ports:
-    #     - 5432:5432
+    ports:
+        - 13056:13056
     # volumes:
     #   - import:/opt/app/import
 
