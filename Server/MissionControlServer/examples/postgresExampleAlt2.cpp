@@ -73,11 +73,23 @@ void insert_load_cell_data(connection &C, std::time_t t, float runTime, float lc
 int main(int argc, char* argv[]) {
    std::string sql;
 
+   if(argc < 2){
+      std::cout << "must provide an IP Address in the format X.X.X.X" << std::endl;
+      return 1;
+   }
+
+   std::string ip(argv[1]);
+
+   if(ip.length() > 15){
+      std::cout << "IP Address must be less than 15 characters!" << std::endl;
+      return 1;
+   }
+
    try 
    {
-      connection C("dbname = missioncontroldb user = lprd password = tyJcV9oY1wvZU9IPpGgD \
-         hostaddr = 10.80.22.9 port = 5432"
-      );
+      std::string connectionOptions = "dbname = missioncontroldb user = lprd password = tyJcV9oY1wvZU9IPpGgD \
+         hostaddr = " + ip + " port = 5432";
+      connection C(connectionOptions);  //connectionOptions.c_str() also works
       std::cout << "Opened database successfully: " << C.dbname() << std::endl;
       std::cout << "(An exception would have been thrown if this was not the case)" << std::endl;
 

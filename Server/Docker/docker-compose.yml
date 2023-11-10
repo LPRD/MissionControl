@@ -11,8 +11,6 @@
 #     apt-get install git -y;
 #     cd /home;
 #     git clone https://github.com/LPRD/MissionControl.git;
-#     mv MissionControl/Server/MissionControlServer .;
-#     mv MissionControl/Server/.vscode .;
 #     rm /etc/localtime;
 #     ln -s /usr/share/zoneinfo/America/Chicago /etc/localtime;
 
@@ -49,9 +47,12 @@ services:
     network_mode: "missioncontrolnet"
 
     command: bash -c "
-        if [ -e /home/MissionControlServer/examples/example2 ]; then
+        SERVER_DIR=/home/MissionControl/Server/MissionControlServer/examples
+        EXECUTABLE=exampleAlt2
+        ARG_1=10.80.22.9
+        if [ -e ${SERVER_DIR}/${EXECUTABLE} ]; then
           echo 'starting MissionControlServer!';
-          /home/MissionControlServer/examples/example2;
+          ${SERVER_DIR}/${EXECUTABLE} ${ARG_1};
           bash;
         else
           echo 'executing default \"bash\" command!';
