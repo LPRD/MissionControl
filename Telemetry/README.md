@@ -84,6 +84,35 @@ from text to time
 With time in the following format:
 YYYY-MM-DD HH:mm:ss
 
+- - - -
+
+
+
+Simulated Sensor Data vs. Run time
+where the sum of all 4 sensors is graphed
+(use trend plot)
+
+```bash
+WITH 
+    t AS (
+        SELECT * FROM load_cell_data ORDER BY run_time DESC LIMIT 300
+        )
+SELECT 
+    run_time,
+    SUM (LC1_FORCE + LC2_FORCE + LC3_FORCE + LC4_FORCE) as lc_sum
+FROM 
+    t
+GROUP BY 
+    run_time 
+ORDER BY 
+    run_time ASC;
+```
+
+- - - -
+
+
+
+
 
 TODO:
 - [ ] find out if there is a way for Grafana to interpret/plot timestamps with a decimal number of seconds (ISO 8601 Timestamps have seconds as ss.ssss)
