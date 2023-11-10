@@ -55,11 +55,15 @@ services:
           apt-get install g++ -y;
           apt-get install libpqxx-dev -y;
           apt-get install git -y;
+          echo 'Packages installed!';
+          sleep 5;
           cd /home;
           git clone https://github.com/LPRD/MissionControl.git;
           rm /etc/localtime;
           ln -s /usr/share/zoneinfo/America/Chicago /etc/localtime;
           echo 'MissionControl environment set up!';
+          cd /home/MissionControl/Server/MissionControlServer/examples;
+          ./build.sh;
         fi;
         if [ -e /home/MissionControl/Server/MissionControlServer/examples/exampleAlt2 ]; then
           echo 'starting MissionControlServer!';
