@@ -47,6 +47,20 @@ services:
     network_mode: "missioncontrolnet"
 
     command: bash -c "
+        if [ -d /home/MissionControl/ ]; then
+          echo 'MissionControl available!';
+        else
+          echo 'Setting up MissionControl environment!';
+          apt update -y && apt upgrade -y;
+          apt-get install g++ -y;
+          apt-get install libpqxx-dev -y;
+          apt-get install git -y;
+          cd /home;
+          git clone https://github.com/LPRD/MissionControl.git;
+          rm /etc/localtime;
+          ln -s /usr/share/zoneinfo/America/Chicago /etc/localtime;
+          echo 'MissionControl environment set up!';
+        fi;
         if [ -e /home/MissionControl/Server/MissionControlServer/examples/exampleAlt2 ]; then
           echo 'starting MissionControlServer!';
           /home/MissionControl/Server/MissionControlServer/examples/exampleAlt2 10.80.22.9;
