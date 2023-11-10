@@ -1,6 +1,6 @@
 # Docker compose file for MissionControlServer
 
-# Command to set up the MissionControlSerer container
+# Command to set up the MissionControlServer container
 # docker compose -f docker-compose.yml up -d
 
 # Configure this container

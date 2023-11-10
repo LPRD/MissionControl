@@ -1,0 +1,95 @@
+# Docker compose file for MissionControl
+
+# Command to set up the MissionControl container
+# docker compose -f docker-compose.yml up -d
+
+name: "missioncontrol"
+version: "3.1"
+
+services:
+  MissionControlServer:
+    image: debian:trixie
+    restart: always
+    environment:
+      - DATABASE_USER=lprd
+      - DATABASE_PASS=tyJcV9oY1wvZU9IPpGgD
+      - DATABASE_NAME=missioncontroldb
+      - DATABASE_HOST=database
+    tty: true
+    networks:
+      missioncontrol_network:
+        ipv4_address: "10.80.23.3"
+    command: bash -c "
+        if [ -d /home/MissionControl/ ]; then
+          echo 'MissionControl available!';
+        else
+          echo 'Setting up MissionControl environment!';
+          apt update -y && apt upgrade -y;
+          apt-get install g++ -y;
+          apt-get install libpqxx-dev -y;
+          apt-get install git -y;
+          echo 'Packages installed!';
+          sleep 5;
+          cd /home;
+          git clone https://github.com/LPRD/MissionControl.git;
+          rm /etc/localtime;
+          ln -s /usr/share/zoneinfo/America/Chicago /etc/localtime;
+          echo 'MissionControl environment set up!';
+          /home/MissionControl/Server/MissionControlServer/examples/build.sh;
+        fi;
+        if [ -e /home/MissionControl/Server/MissionControlServer/examples/exampleAlt2 ]; then
+          echo 'starting MissionControlServer!';
+          /home/MissionControl/Server/MissionControlServer/examples/exampleAlt2 10.80.23.9;
+          bash;
+        else
+          echo 'executing default \"bash\" command!';
+          bash;
+        fi;"
+    ports:
+        - 13056:13056
+
+  MissionControlTelemetry:
+    image: grafana/grafana:10.2.0
+    restart: always
+    environment:
+      - DATABASE_USER=lprd
+      - DATABASE_PASS=tyJcV9oY1wvZU9IPpGgD
+      - DATABASE_NAME=missioncontroldb
+      - DATABASE_HOST=database  
+      # DATABASE_HOST must match the postgres service name
+      - GF_DASHBOARDS_MIN_REFRESH_INTERVAL=100ms
+      # https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/#override-configuration-with-environment-variables
+    networks:
+      missioncontrol_network:
+        ipv4_address: "10.80.23.5"
+    ports:
+      - "13128:3000"
+    volumes:
+      - missioncontrol-grafana-data:/var/lib/grafana
+
+  database:
+    image: postgres:15
+    restart: always
+    environment:
+      - POSTGRES_USER=lprd
+      - POSTGRES_PASSWORD=tyJcV9oY1wvZU9IPpGgD
+      - POSTGRES_DB=missioncontroldb
+    networks:
+      missioncontrol_network:
+        ipv4_address: "10.80.23.9"
+    ports:
+      - 5432:5432
+    volumes:
+      - missioncontrol-db:/var/lib/postgresql/data
+
+networks:
+  missioncontrol_network: 
+    ipam:
+      driver: default   #bridge
+      config:
+        - subnet: "10.80.23.0/24"
+    name: "missioncontrolnetwork"
+
+volumes:
+  missioncontrol-grafana-data:
+  missioncontrol-db:

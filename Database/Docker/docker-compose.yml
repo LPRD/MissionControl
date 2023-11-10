@@ -36,7 +36,9 @@ services:
     networks:
       missioncontrol_net:
         ipv4_address: "10.80.22.9"
-        # must have other services within this compose file to set a staic IP
+        # Static IPs can only be assigned to services listed in this docker-compose file
+        # Unsure how to set an IP for services in other compose files where
+        # network_mode is set to use this container's network 
     ports:
       - 5432:5432
     volumes:
