@@ -47,12 +47,9 @@ services:
     network_mode: "missioncontrolnet"
 
     command: bash -c "
-        SERVER_DIR=/home/MissionControl/Server/MissionControlServer/examples;
-        EXECUTABLE=exampleAlt2;
-        ARG_1=10.80.22.9;
-        if [ -e ${SERVER_DIR}/${EXECUTABLE} ]; then
+        if [ -e /home/MissionControl/Server/MissionControlServer/examples/exampleAlt2 ]; then
           echo 'starting MissionControlServer!';
-          ${SERVER_DIR}/${EXECUTABLE} ${ARG_1};
+          /home/MissionControl/Server/MissionControlServer/examples/exampleAlt2 10.80.22.9;
           bash;
         else
           echo 'executing default \"bash\" command!';
