@@ -1,12 +1,12 @@
 #Makefile
 CC = g++
-CFLAGS = -Wall -Werror -Wmissing-prototypes -std=c++17
+CFLAGS = -Wall -Werror -Wmissing-prototypes -std=c++17 -O3
 OBJS = ../../build/tcpScaleServer.o
 # OBJS1 = ../../build/i2cMux.o ../../build/i2cScaleNAU7802.o 
 PROG = ../../output/tcpScaleServer
 # LOCALLIBDIR = /usr/local/lib
 # LDFLAGS = -L$(LOCALLIBDIR)
-# LDLIBS  = -li2c
+LDLIBS  = -lpqxx -lpq
 # INC1=-I../../include
 
 all: $(PROG)

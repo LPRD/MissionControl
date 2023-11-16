@@ -16,10 +16,13 @@ make all
 ```bash
 make run
 # or
-make ARGS="<server-port>" run
+make ARGS="<database-ip> <server-port>" run
 # or
-make run ARGS="<server-port>"
+make run ARGS="<database-ip> <server-port>"
 # use the forwarded port of the server container
+# ex:
+make run ARGS="10.80.22.9 13056"    # individual container 
+make run ARGS="10.80.23.9 13056"    # combined docker-compose container
 # read Makefile to see available commands
 ```
 
