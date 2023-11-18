@@ -3,34 +3,6 @@
 # Command to set up the MissionControlServer container
 # docker compose -f docker-compose.yml up -d
 
-# Configure this container
-# get to the command line run the following commands:
-#     apt update -y && apt upgrade -y;
-#     apt-get install g++ -y;
-#     apt-get install libpqxx-dev -y;
-#     apt-get install git -y;
-#     cd /home;
-#     git clone https://github.com/LPRD/MissionControl.git;
-#     rm /etc/localtime;
-#     ln -s /usr/share/zoneinfo/America/Chicago /etc/localtime;
-
-# optional but helpful packages:
-  #     apt update -y && apt upgrade -y;
-  #     apt-get install dnsutils -y;  #host <ip>
-  #     apt-get install nbtscan -y;   #nbtscan <ip>
-  #     apt-get install -y procps;  #for "ps aux" command to "kill -9" the server PID  
-  #     apt install cmake -y;
-  #     apt install iproute2 -y;
-  #     apt-get install iputils-ping -y;
-  #     apt-get -y install vim;
-  #     apt-get -y install tree;
-  #     apt-get install wget -y;
-  #     apt-get install build-essential -y;
-  #     apt update -y && apt upgrade -y;
-  #     apt-get install netcat-traditional -y;
-  #     apt-get install nmap -y;
-  #     apt-get install man -y;
-
 name: "missioncontrolserver"
 version: "3.1"
 
@@ -50,30 +22,22 @@ services:
         if [ -d /home/MissionControl/ ]; then
           echo 'MissionControl available!';
         else
-          echo 'Setting up MissionControl environment!';
+          echo 'Getting MissionControl!';
           apt update -y && apt upgrade -y;
-          apt-get install g++ -y;
-          apt-get install libpqxx-dev -y;
           apt-get install git -y;
-          echo 'Packages installed!';
-          sleep 5;
           cd /home;
           git clone https://github.com/LPRD/MissionControl.git;
-          rm /etc/localtime;
-          ln -s /usr/share/zoneinfo/America/Chicago /etc/localtime;
-          echo 'MissionControl environment set up!';
-          cd /home/MissionControl/Server/MissionControlServer/examples;
-          ./build.sh;
+          cd /home/MissionControl/Server/MissionControlServer;
+          ./setup.sh;
         fi;
-        if [ -e /home/MissionControl/Server/MissionControlServer/examples/exampleAlt2 ]; then
+        if [ -d /home/MissionControl/Server/MissionControlServer/output ]; then
           echo 'starting MissionControlServer!';
-          /home/MissionControl/Server/MissionControlServer/examples/exampleAlt2 10.80.22.9;
-          bash;
+          cd /home/MissionControl/Server/MissionControlServer;
+          ./run.sh;
         else
           echo 'executing default \"bash\" command!';
           bash;
         fi;"
-
     ports:
         - 13056:13056
     # volumes:

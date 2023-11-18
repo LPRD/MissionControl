@@ -48,8 +48,8 @@ void insert_load_cell_data(connection &C, std::time_t t, float runTime, float lc
 
       // Create a transactional object.
       work W_INSERT(C);
-      // INSERT SQL statement
 
+      // INSERT SQL statement
       std::string command = "INSERT INTO LOAD_CELL_DATA " \
          "(TIME_STR,RUN_TIME,LC1_FORCE,LC2_FORCE,LC3_FORCE,LC4_FORCE) " \
          "VALUES ('" + 

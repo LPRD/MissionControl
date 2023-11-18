@@ -91,7 +91,6 @@ void insert_load_cell_data(connection &C, std::time_t t, float runTime, float lc
 }
 
 
-
 int main(int argc, char* argv[])
 {
     if(argc < 3){
@@ -245,74 +244,11 @@ int main(int argc, char* argv[])
                 float lc4 = packet.data[3];
                 insert_load_cell_data(C, ttCurrentTime, runTime, lc1, lc2, lc3, lc4);
             }
-
-
-
-
-
-
-
         }
-
     } 
     catch (const std::exception &e)
     {
         std::cerr << e.what() << std::endl;
         return 1;
     }
-
-
-
-
-
-
-    // while(1)
-    // {
-    //     // valread = read(new_socket, buffer, 1024);
-    //     // printf("%s\n", buffer);
-    //     // send(new_socket, hello, strlen(hello), 0);
-    //     // printf("Hello message sent\n");
-
-
-    //     // std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-
-    //     // int bytesToSend = NumCells*4;
-
-    //     // strcpy(packet.cmd, "data:int32:");
-
-    //     // bytesToSend += strlen(packet.cmd); //does not work, must use whole buffer length
-    //     // bytesToSend += 16;  //need to send an amount of bytes that is 4byte aligned
-    //     //NEED TO BE 4 BYTE ALIGNED
-
-    //     // if(!CalculateZeroOffset && RunSocket){
-    //     //     // printf("sent %d bytes!\n", bytesToSend);
-    //     //     send(client_fd, &packet, bytesToSend, 0);
-
-    //     //     // valread = read(client_fd, buffer, 1024);    //Move this to a separate task
-    //     //     // printf("%s\n", buffer);
-    //     //     // need to add a way to escape from read after a certain amount of time
-
-    //     //     int iBuf[1024/4] = { 0 };
-    //     //     valread = read(client_fd, iBuf, 1024);   
-    //     //     for (int i = 0; i < NumCells; i++){
-    //     //         printf("%d\t", iBuf[i]);
-    //     //     }
-    //     //     printf("\n");
-        
-    //     //     // float fBuf[1024/4] = { 0 };
-    //     //     // valread = read(client_fd, fBuf, 1024);
-    //     //     // for (int i = 0; i < NumCells; i++){
-    //     //     //     printf("%f\t", fBuf[i]);
-    //     //     // }
-    //     //     // printf("\n");
-    //     // }
-
-
-    // }
-
-
 }
-
-
-
-

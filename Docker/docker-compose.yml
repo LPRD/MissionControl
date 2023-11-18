@@ -23,25 +23,18 @@ services:
         if [ -d /home/MissionControl/ ]; then
           echo 'MissionControl available!';
         else
-          echo 'Setting up MissionControl environment!';
+          echo 'Getting MissionControl!';
           apt update -y && apt upgrade -y;
-          apt-get install g++ -y;
-          apt-get install libpqxx-dev -y;
           apt-get install git -y;
-          echo 'Packages installed!';
-          sleep 5;
           cd /home;
           git clone https://github.com/LPRD/MissionControl.git;
-          rm /etc/localtime;
-          ln -s /usr/share/zoneinfo/America/Chicago /etc/localtime;
-          echo 'MissionControl environment set up!';
-          cd /home/MissionControl/Server/MissionControlServer/examples;
-          ./build.sh;
+          cd /home/MissionControl/Server/MissionControlServer;
+          ./setup.sh;
         fi;
-        if [ -e /home/MissionControl/Server/MissionControlServer/examples/exampleAlt2 ]; then
+        if [ -d /home/MissionControl/Server/MissionControlServer/output ]; then
           echo 'starting MissionControlServer!';
-          /home/MissionControl/Server/MissionControlServer/examples/exampleAlt2 10.80.23.9;
-          bash;
+          cd /home/MissionControl/Server/MissionControlServer;
+          ./run.sh;
         else
           echo 'executing default \"bash\" command!';
           bash;
@@ -58,7 +51,7 @@ services:
       - DATABASE_NAME=missioncontroldb
       - DATABASE_HOST=database  
       # DATABASE_HOST must match the postgres service name
-      - GF_DASHBOARDS_MIN_REFRESH_INTERVAL=100ms
+      - GF_DASHBOARDS_MIN_REFRESH_INTERVAL=10ms
       # https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/#override-configuration-with-environment-variables
     networks:
       missioncontrol_network:
