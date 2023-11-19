@@ -69,6 +69,17 @@ Option 2:
 run the dockerSetup.sh script in the Docker folder if using a Debian based image
 
 
+If you are trying to run a specific docker container (postgresql, grafana) but get a bind error related to the required port, the issue might be that the linux machine is already running a local instance of that program. You can either continue to use the locally installed instance (NOTE: may require additional configuration to comminicate with other containers) or disable the SystemD service for the locally installed service. 
+
+```bash
+# example
+sudo systemctl stop postgresql.service
+sudo systemctl disable postgresql.service
+# if any local packages need to be removed
+sudo apt remove postgresql
+```
+
+
 ### Docker Usage Instructions ###
 use the command line to pull the desired Docker image 
 ```bash
