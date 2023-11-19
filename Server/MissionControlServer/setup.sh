@@ -28,12 +28,15 @@ sleep 1;
 rm /etc/localtime;
 ln -s /usr/share/zoneinfo/America/Chicago /etc/localtime;
 
-# build examples
+# build
 cd /home/MissionControl/Server/MissionControlServer;
+mkdir -p ./build
+mkdir -p ./output
+
+# build examples
 ./buildExamples.sh;
 
 # build main application - TO BE CREATED
-# cd /home/MissionControl/Server/MissionControlServer;
 # ./build.sh;
 
 echo 'MissionControl environment set up!';
