@@ -50,6 +50,7 @@ Download [Docker Desktop](https://www.docker.com/products/docker-desktop/) for L
 
 Alternatively, you can install and use the command line version of docker (for more advanced users)
 
+Option 1:
 ```bash
 #This does not work on a container running on Windows due to WSL
 #In that scenario, just install Docker Desktop 
@@ -63,6 +64,9 @@ $ sudo usermod -aG docker < your_username >
 #to verify everything is set up correctly
 $ docker run hello-world
 ```
+
+Option 2:
+run the dockerSetup.sh script in the Docker folder if using a Debian based image
 
 
 ### Docker Usage Instructions ###
