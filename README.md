@@ -4,7 +4,7 @@ Repo that handles all applications/services that are needed on a mission control
 
 ### Section Links ###
 
-[Docker Setup](#DOCKER_SETUP "Goto DOCKER_SETUP")
+[Docker Setup](#DOCKER_SETUP)
 
 [Git/Github Setup](#GIT_SETUP "Goto GIT_SETUP")
 
