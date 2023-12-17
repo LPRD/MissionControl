@@ -6,17 +6,17 @@ Repo that handles all applications/services that are needed on a mission control
 
 [Docker Setup](#DOCKER_SETUP)
 
-[Git/Github Setup](#GIT_SETUP "Goto GIT_SETUP")
+[Git/Github Setup](#GIT_SETUP)
 
-[Server](#SERVER "Goto SERVER")
+[Server](#SERVER)
 
-[Telemetry](#TELEMETRY "Goto TELEMETRY")
+[Telemetry](#TELEMETRY)
 
-[Database](#DATABASE "Goto DATABASE")
+[Database](#DATABASE)
 
-[Interface](#INTERFACE "Goto INTERFACE")
+[Interface](#INTERFACE)
 
-[Adapter](#ADAPTER "Goto ADAPTER")
+[Adapter](#ADAPTER)
 
 
 ### Where each service runs ###
@@ -31,7 +31,7 @@ MissionControlAdapter  | Locally
 TODO:
 - [ ] add useful links list
 - [ ] add pictures of each GUI
-- [ ] add draw.io diagram outlining how everything interracts
+- [ ] add draw.io diagram outlining how everything interacts
 
 
 
@@ -66,10 +66,10 @@ $ docker run hello-world
 ```
 
 Option 2:
-run the dockerSetup.sh script in the Docker folder if using a Debian based image
+run the dockerSetup.sh script in the Docker folder if using a Debian-based image
 
 
-If you are trying to run a specific docker container (postgresql, grafana) but get a bind error related to the required port, the issue might be that the linux machine is already running a local instance of that program. You can either continue to use the locally installed instance (NOTE: may require additional configuration to comminicate with other containers) or disable the SystemD service for the locally installed service. 
+If you are trying to run a specific docker container (PostgreSQL, Grafana) but get a bind error related to the required port, the issue might be that the Linux machine is already running a local instance of that program. You can either continue to use the locally installed instance (NOTE: may require additional configuration to communicate with other containers) or disable the SystemD service for the locally installed service. 
 
 ```bash
 # example
@@ -83,7 +83,7 @@ sudo apt remove postgresql
 ### Docker Usage Instructions ###
 use the command line to pull the desired Docker image 
 ```bash
-# public iamge
+# public image
 $ docker pull debian:trixie
 
 # example team image that does not exist
@@ -101,7 +101,7 @@ type the desired Docker container name in the Docker Desktop top search bar and 
 
 
 
-Once an image is pulled, it can be ran using the command line
+Once an image is pulled, it can be run using the command line
 ```bash
 # run a customized container based on a public image
 $ docker run -it  --network host --hostname MCS -v /docker --name MissionControlServer1.2 debian:trixie bash
@@ -124,7 +124,7 @@ click the start button in the Docker Desktop app (first navigate to the containe
 Modifying MissionControl Containers/making your own version
 
 Requirements
-- VSCode with the following extentions
+- VSCode with the following extensions
     - Remote Development
     - Dev Containers
     - Remote Explorer (might only be relevant for SSH)
@@ -147,10 +147,10 @@ Download [Github Desktop](https://desktop.github.com/) for for Windows
 
 #### Linux  ####
 You can install and use git on the command line if you are using a Linux image (no Github Desktop available)
-git allows you to do version controlled development for this repository or others!
+git allows you to do version-controlled development for this repository or others!
 
 ```bash
-# If you’re on Fedora (or any closely-related RPM-based distribution, 
+# If you’re on Fedora (or any closely related RPM-based distribution, 
 # such as RHEL or CentOS), you can use dnf:
 $ sudo dnf install git-all
 
@@ -166,10 +166,10 @@ MissionControlServer is a Docker Container that runs a C++ Application responsib
 - collecting data from mission hardware
     - Ground Support Equipment (GSE)
     - Flight Computer
-        - may interract with an adapter service that runs locally on the host machine
+        - may interact with an adapter service that runs locally on the host machine
     - any other hardware that can benefit from sending its data to a centralized database
 - sending commands to mission hardware
-- interracting with the database on the mission control laptop
+- interacting with the database on the mission control laptop
     - mostly adding information
 
 The MissionControlServer directory contains:
@@ -208,8 +208,8 @@ The MissionControlTelemetry directory contains:
 - [ ] a publicly available Grafana container that has been customized for our use case
 
 
-The second checkbox is low priority/unnecessary at the moment becuase
-- Grafana already runs upon container start up, eliminating the need for a customized container
+The second checkbox is low priority/unnecessary at the moment because
+- Grafana already runs upon container start-up, eliminating the need for a customized container
 - the Grafana container can be configured enough for our use case with the docker-compose file
 
 The image currently being used is 
@@ -226,12 +226,12 @@ MissionControlDatabase is a Docker Container that runs a PostgreSQL database for
 [PostgreSQL Overview and Site](https://www.postgresql.org/)
 
 Our use case for a PostgreSQL database is:
-- providing an easy to connect data source for Grafana to use
-- providing an easy to connect data path for web-based (such as javascript) applications
+- providing an easy-to-connect data source for Grafana to use
+- providing an easy-to-connect data path for web-based (such as javascript) applications
     - javascript applications *cannot* easily open files continuously to show the latest data that was added to it
         - ex: having MissionControlServer add the latest data to a data.json file *won't* work
     - javascript applications *cannot* easily connect with TCP Socket or other ethernet servers to share data
-        - ex: having MissionControlServer send or recieve data to/from a javascript GUI app over a TCP Socket *won't* work
+        - ex: having MissionControlServer send or receive data to/from a javascript GUI app over a TCP Socket *won't* work
     - web applications can easily access databases
 
 The MissionControlDatabase directory contains:
@@ -239,8 +239,8 @@ The MissionControlDatabase directory contains:
 - [ ] a publicly available Postgres container that has been customized for our use case
 
 
-The second checkbox is low priority/unnecessary at the moment becuase
-- Postgres already runs upon container start up, eliminating the need for a customized container
+The second checkbox is low priority/unnecessary at the moment because
+- Postgres already runs upon container start-up, eliminating the need for a customized container
 - the Postgres container can be configured enough for our use case with the docker-compose file
 
 The image currently being used is 
@@ -252,7 +252,7 @@ The image currently being used is
 MissionControlInterface is a local javascript app that runs a basic GUI for sending commands.
 
 Our use case for MissionControlInterface is to:
-- provide a minimalistic, easy to use, dedicated app for sending commands to the mission hardware
+- provide a minimalistic, easy-to-use, dedicated app for sending commands to the mission hardware
 
 This application is *separate* from the telemetry visualization app (Grafana) to:
 - increase the reliability of this application as it is more safety-critical than a telemetry dashboard
